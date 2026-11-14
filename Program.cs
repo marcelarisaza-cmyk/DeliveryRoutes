@@ -36,7 +36,7 @@ catch (InvalidDataException ex)
 {
     Console.WriteLine(ex.Message);
 }*/
-
+/*
 using Backend;
 
 try
@@ -58,4 +58,24 @@ try
 catch (InvalidDataException ex)
 {
     Console.WriteLine(ex.Message);
+}*/
+
+using Backend;
+
+var mini = CityFile.Load("city_mini.txt");
+
+
+var (distance, previous) = ShortestPaths.Dijkstra(mini, "A");
+foreach (var vertex in distance.Keys.OrderBy(v => v))
+{
+    Console.WriteLine($"A -> {vertex}: {distance[vertex]} m");
 }
+Console.WriteLine("Camino A a G: " + string.Join(" -> ", ShortestPaths.BuildPath(previous, "A", "G")));
+
+var (distanceD, previousD) = ShortestPaths.Dijkstra(mini, "D");
+Console.WriteLine($"D -> A: {distanceD["A"]} m");
+Console.WriteLine("Camino D a A: " + string.Join(" -> ", ShortestPaths.BuildPath(previousD, "D", "A")));
+
+var city = CityFile.Load("city.txt");
+Console.WriteLine($"AQ -> BS: {ShortestPaths.Dijkstra(city, "AQ").Distance["BS"]} m");
+Console.WriteLine($"BS -> AQ: {ShortestPaths.Dijkstra(city, "BS").Distance["AQ"]} m");
