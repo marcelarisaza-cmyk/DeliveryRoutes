@@ -1,0 +1,8 @@
+C,Pickup,1
+G,Delivery,1
+Z,Pickup,2
+E,Fly,3
+E,Pickup,abc
+C,Pickup,1
+D,Delivery,4
+E,Pickup

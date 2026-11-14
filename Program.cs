@@ -1,4 +1,4 @@
-﻿using Backend;
+﻿/*using Backend;
 
 try
 {
@@ -13,6 +13,47 @@ try
             Console.WriteLine($"{edge.From} -> {edge.To} ({edge.Weight} m)");
         }
     }
+}
+catch (InvalidDataException ex)
+{
+    Console.WriteLine(ex.Message);
+}*/
+
+/*using Backend;
+
+try
+{
+    var city = CityFile.Load("city_mini.txt");
+    var packages = PackageFile.Load("packages_mini.txt", city);
+
+    Console.WriteLine($"Paquetes: {packages.Count}");
+    foreach (var package in packages)
+    {
+        Console.WriteLine($"Paquete {package.Id}: recoger en {package.Pickup}, entregar en {package.Delivery}");
+    }
+}
+catch (InvalidDataException ex)
+{
+    Console.WriteLine(ex.Message);
+}*/
+
+using Backend;
+
+try
+{
+    var city = CityFile.Load("city.txt");
+    var packages = PackageFile.Load("packages.txt", city);
+
+    Console.WriteLine($"Ubicaciones: {city.VertexCount}");
+    Console.WriteLine($"Paquetes: {packages.Count}");
+
+    foreach (var package in packages.Take(5))
+    {
+        Console.WriteLine($"Paquete {package.Id}: recoger en {package.Pickup}, entregar en {package.Delivery}");
+    }
+
+    var last = packages[^1];
+    Console.WriteLine($"Paquete {last.Id}: recoger en {last.Pickup}, entregar en {last.Delivery}");
 }
 catch (InvalidDataException ex)
 {
