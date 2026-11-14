@@ -143,3 +143,4 @@ CI,CK,300,TwoWay
 CJ,CT,230,TwoWay
 CJ,CV,380,OneWay
 CR,CT,420,TwoWay
+CU,CV,360,OneWay
