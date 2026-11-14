@@ -60,7 +60,7 @@ catch (InvalidDataException ex)
     Console.WriteLine(ex.Message);
 }*/
 
-using Backend;
+/*using Backend;
 
 var mini = CityFile.Load("city_mini.txt");
 
@@ -78,4 +78,33 @@ Console.WriteLine("Camino D a A: " + string.Join(" -> ", ShortestPaths.BuildPath
 
 var city = CityFile.Load("city.txt");
 Console.WriteLine($"AQ -> BS: {ShortestPaths.Dijkstra(city, "AQ").Distance["BS"]} m");
-Console.WriteLine($"BS -> AQ: {ShortestPaths.Dijkstra(city, "BS").Distance["AQ"]} m");
+Console.WriteLine($"BS -> AQ: {ShortestPaths.Dijkstra(city, "BS").Distance["AQ"]} m");*/
+
+/*using Backend;
+
+var city = CityFile.Load("city_mini.txt");
+var packages = PackageFile.Load("packages_mini.txt", city);
+var planner = new RoutePlanner(city, packages, "A");
+
+var route = planner.NearestNeighbor();
+int number = 1;
+foreach (var stop in route)
+{
+    string action = stop.Kind == StopKind.Pickup ? "Recoger" : "Entregar";
+    Console.WriteLine($"{number++}. {action} paquete {stop.PackageId} en {stop.Location}");
+}
+
+Console.WriteLine($"Válida: {planner.IsValid(route)}");
+Console.WriteLine($"Total: {planner.TotalDistance(route)} m");
+Console.WriteLine("Camino D a A: " + string.Join(" -> ", planner.PathBetween("D", "A")));*/
+
+using Backend;
+
+var city = CityFile.Load("city.txt");
+var packages = PackageFile.Load("packages.txt", city);
+var planner = new RoutePlanner(city, packages, "D");
+
+var route = planner.NearestNeighbor();
+Console.WriteLine($"Paradas: {route.Count}");
+Console.WriteLine($"Válida: {planner.IsValid(route)}");
+Console.WriteLine($"Total: {planner.TotalDistance(route) / 1000:F2} km");
