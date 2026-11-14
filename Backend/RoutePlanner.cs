@@ -34,9 +34,8 @@ public class RoutePlanner
         return _distance[from].TryGetValue(to, out double value) ? value : double.PositiveInfinity;
     }
 
-    
-    public List<Stop> Plan() => NearestNeighbor();
 
+    public List<Stop> Plan() => Relocate(BuildByInsertion(_packages));
     public List<Stop> NearestNeighbor()
     {
         var route = new List<Stop>();
@@ -153,5 +152,107 @@ public class RoutePlanner
     public List<string> PathBetween(string from, string to)
     {
         return ShortestPaths.BuildPath(_previous[from], from, to);
+    }
+
+    public List<Stop> BuildByInsertion(IEnumerable<Package> order)
+    {
+        var route = new List<Stop>();
+
+        foreach (var package in order)
+        {
+            var (pickupIndex, deliveryIndex) = BestInsertion(route, package);
+            route = Insert(route, package, pickupIndex, deliveryIndex);
+        }
+
+        return route;
+    }
+
+    public List<Stop> Relocate(List<Stop> route)
+    {
+        bool improved = true;
+
+        while (improved)
+        {
+            improved = false;
+
+            foreach (var package in _packages)
+            {
+                double current = TotalDistance(route);
+
+                var without = route.Where(s => s.PackageId != package.Id).ToList();
+                var (pickupIndex, deliveryIndex) = BestInsertion(without, package);
+                var candidate = Insert(without, package, pickupIndex, deliveryIndex);
+
+                if (TotalDistance(candidate) < current - 1e-9)
+                {
+                    route = candidate;
+                    improved = true;
+                }
+            }
+        }
+
+        return route;
+    }
+
+   
+    private (int PickupIndex, int DeliveryIndex) BestInsertion(List<Stop> route, Package package)
+    {
+        int count = route.Count;
+        double bestCost = double.PositiveInfinity;
+        int bestI = 0;
+        int bestJ = 0;
+
+        for (int i = 0; i <= count; i++)
+        {
+            string before = i == 0 ? _start : route[i - 1].Location;
+            string? after = i < count ? route[i].Location : null;
+
+            for (int j = i; j <= count; j++)
+            {
+                double cost;
+
+                if (i == j)
+                {
+                    cost = Distance(before, package.Pickup) + Distance(package.Pickup, package.Delivery);
+                    if (after is not null)
+                    {
+                        cost += Distance(package.Delivery, after) - Distance(before, after);
+                    }
+                }
+                else
+                {
+                    cost = Distance(before, package.Pickup)
+                         + Distance(package.Pickup, after!) - Distance(before, after!);
+
+                    string beforeDelivery = route[j - 1].Location;
+                    string? afterDelivery = j < count ? route[j].Location : null;
+
+                    cost += Distance(beforeDelivery, package.Delivery);
+                    if (afterDelivery is not null)
+                    {
+                        cost += Distance(package.Delivery, afterDelivery) - Distance(beforeDelivery, afterDelivery);
+                    }
+                }
+
+                
+                if (cost < bestCost)
+                {
+                    bestCost = cost;
+                    bestI = i;
+                    bestJ = j;
+                }
+            }
+        }
+
+        return (bestI, bestJ);
+    }
+
+ 
+    private static List<Stop> Insert(List<Stop> route, Package package, int pickupIndex, int deliveryIndex)
+    {
+        var result = new List<Stop>(route);
+        result.Insert(deliveryIndex, new Stop(package.Delivery, StopKind.Delivery, package.Id));
+        result.Insert(pickupIndex, new Stop(package.Pickup, StopKind.Pickup, package.Id));
+        return result;
     }
 }

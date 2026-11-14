@@ -98,13 +98,33 @@ Console.WriteLine($"Válida: {planner.IsValid(route)}");
 Console.WriteLine($"Total: {planner.TotalDistance(route)} m");
 Console.WriteLine("Camino D a A: " + string.Join(" -> ", planner.PathBetween("D", "A")));*/
 
+/*using Backend;
+
+var city = CityFile.Load("city_mini.txt");
+var packages = PackageFile.Load("packages_mini.txt", city);
+var planner = new RoutePlanner(city, packages, "A");
+
+var route = planner.Plan();
+int number = 1;
+foreach (var stop in route)
+{
+    string action = stop.Kind == StopKind.Pickup ? "Recoger" : "Entregar";
+    Console.WriteLine($"{number++}. {action} paquete {stop.PackageId} en {stop.Location}");
+}
+
+Console.WriteLine($"Válida: {planner.IsValid(route)}");
+Console.WriteLine($"Total: {planner.TotalDistance(route)} m");*/
+
 using Backend;
 
 var city = CityFile.Load("city.txt");
 var packages = PackageFile.Load("packages.txt", city);
 var planner = new RoutePlanner(city, packages, "D");
 
-var route = planner.NearestNeighbor();
-Console.WriteLine($"Paradas: {route.Count}");
-Console.WriteLine($"Válida: {planner.IsValid(route)}");
-Console.WriteLine($"Total: {planner.TotalDistance(route) / 1000:F2} km");
+var inserted = planner.BuildByInsertion(packages);
+Console.WriteLine($"Solo inserción: {planner.TotalDistance(inserted) / 1000:F2} km");
+
+var relocated = planner.Relocate(inserted);
+Console.WriteLine($"Con reubicación: {planner.TotalDistance(relocated) / 1000:F2} km");
+Console.WriteLine($"Paradas: {relocated.Count}");
+Console.WriteLine($"Válida: {planner.IsValid(relocated)}");
