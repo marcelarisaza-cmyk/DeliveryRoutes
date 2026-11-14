@@ -2,11 +2,11 @@
 
 try
 {
-    var city = CityFile.Load("city_mini.txt");
+    var city = CityFile.Load("city.txt");
     Console.WriteLine($"Ubicaciones: {city.VertexCount}");
     Console.WriteLine($"Aristas: {city.Vertices.Sum(v => city.GetEdges(v).Count)}");
 
-    foreach (var start in new[] { "C", "D" })
+    foreach (var start in new[] { "AQ", "BS" })
     {
         foreach (var edge in city.GetEdges(start))
         {
