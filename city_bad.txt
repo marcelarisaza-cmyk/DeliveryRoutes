@@ -1,0 +1,5 @@
+A,B,300,TwoWay
+A,B,abc,TwoWay
+B,A,100,TwoWay
+C,D,200,Diagonal
+C,D

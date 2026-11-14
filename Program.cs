@@ -1,16 +1,20 @@
 ﻿using Backend;
 
-var graph = new Graph<string>(directed: true);
-
-graph.AddEdge("A", "B", 100);
-graph.AddEdge("B", "C", 50);
-graph.AddEdge("C", "B", 50);
-
-
-foreach (var vertex in graph.Vertices)
+try
 {
-    foreach (var edge in graph.GetEdges(vertex))
+    var city = CityFile.Load("city_mini.txt");
+    Console.WriteLine($"Ubicaciones: {city.VertexCount}");
+    Console.WriteLine($"Aristas: {city.Vertices.Sum(v => city.GetEdges(v).Count)}");
+
+    foreach (var start in new[] { "C", "D" })
     {
-        Console.WriteLine($"{edge.From} -> {edge.To} ({edge.Weight} m)");
+        foreach (var edge in city.GetEdges(start))
+        {
+            Console.WriteLine($"{edge.From} -> {edge.To} ({edge.Weight} m)");
+        }
     }
+}
+catch (InvalidDataException ex)
+{
+    Console.WriteLine(ex.Message);
 }
