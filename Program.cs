@@ -131,10 +131,9 @@ Console.WriteLine($"Válida: {planner.IsValid(relocated)}");*/
 
 using Backend;
 
-var city = CityFile.Load("city_mini.txt");
-var packages = PackageFile.Load("packages_mini.txt", city);
-var planner = new RoutePlanner(city, packages, "A");
+var city = CityFile.Load("city.txt");
+var packages = PackageFile.Load("packages.txt", city);
+var planner = new RoutePlanner(city, packages, "D");
 
 var route = planner.Plan();
-Console.WriteLine($"Válida: {planner.IsValid(route)}");
-Console.WriteLine($"Total: {planner.TotalDistance(route)} m");
+Console.Write(RoutePrinter.Print(city, packages, "D", planner, route));
