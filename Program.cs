@@ -115,7 +115,7 @@ foreach (var stop in route)
 Console.WriteLine($"Válida: {planner.IsValid(route)}");
 Console.WriteLine($"Total: {planner.TotalDistance(route)} m");*/
 
-using Backend;
+/*using Backend;
 
 var city = CityFile.Load("city.txt");
 var packages = PackageFile.Load("packages.txt", city);
@@ -127,4 +127,14 @@ Console.WriteLine($"Solo inserción: {planner.TotalDistance(inserted) / 1000:F2}
 var relocated = planner.Relocate(inserted);
 Console.WriteLine($"Con reubicación: {planner.TotalDistance(relocated) / 1000:F2} km");
 Console.WriteLine($"Paradas: {relocated.Count}");
-Console.WriteLine($"Válida: {planner.IsValid(relocated)}");
+Console.WriteLine($"Válida: {planner.IsValid(relocated)}");*/
+
+using Backend;
+
+var city = CityFile.Load("city_mini.txt");
+var packages = PackageFile.Load("packages_mini.txt", city);
+var planner = new RoutePlanner(city, packages, "A");
+
+var route = planner.Plan();
+Console.WriteLine($"Válida: {planner.IsValid(route)}");
+Console.WriteLine($"Total: {planner.TotalDistance(route)} m");

@@ -35,7 +35,32 @@ public class RoutePlanner
     }
 
 
-    public List<Stop> Plan() => Relocate(BuildByInsertion(_packages));
+    private const int Restarts = 100;
+    private const int Seed = 42;
+
+   
+    public List<Stop> Plan()
+    {
+        var random = new Random(Seed);
+
+        var best = Relocate(BuildByInsertion(_packages));
+        double bestDistance = TotalDistance(best);
+
+        for (int attempt = 0; attempt < Restarts; attempt++)
+        {
+            var shuffled = _packages.OrderBy(_ => random.Next()).ToList();
+            var candidate = Relocate(BuildByInsertion(shuffled));
+            double distance = TotalDistance(candidate);
+
+            if (distance < bestDistance)
+            {
+                best = candidate;
+                bestDistance = distance;
+            }
+        }
+
+        return best;
+    }
     public List<Stop> NearestNeighbor()
     {
         var route = new List<Stop>();
