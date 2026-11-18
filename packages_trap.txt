@@ -1,0 +1,2 @@
+﻿A,Pickup,1
+C,Delivery,1

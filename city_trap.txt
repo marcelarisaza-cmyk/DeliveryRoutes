@@ -1,0 +1,2 @@
+﻿A,B,100,TwoWay
+B,C,100,OneWay

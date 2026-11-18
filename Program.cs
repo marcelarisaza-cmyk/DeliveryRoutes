@@ -1,139 +1,62 @@
-﻿/*using Backend;
+﻿using Backend;
+
+if (args.Length != 0 && args.Length != 3)
+{
+    Console.WriteLine("Uso: dotnet run -- city.txt packages.txt D");
+    return;
+}
 
 try
 {
-    var city = CityFile.Load("city.txt");
-    Console.WriteLine($"Ubicaciones: {city.VertexCount}");
-    Console.WriteLine($"Aristas: {city.Vertices.Sum(v => city.GetEdges(v).Count)}");
+    string cityPath = args.Length == 3 ? args[0] : Ask("Ruta del archivo  MAPA (CITY.TXT): ");
+    string packagesPath = args.Length == 3 ? args[1] : Ask("Ruta del archivo PAQUETE (PACKAGES.TXT): ");
+    string start = (args.Length == 3 ? args[2] : Ask("Posición INICIO (D): ")).Trim();
 
-    foreach (var start in new[] { "AQ", "BS" })
+    var city = CityFile.Load(cityPath);
+    var packages = PackageFile.Load(packagesPath, city);
+
+    var problems = ShortestPaths.CheckReachability(city, packages, start);
+    if (problems.Count > 0)
     {
-        foreach (var edge in city.GetEdges(start))
-        {
-            Console.WriteLine($"{edge.From} -> {edge.To} ({edge.Weight} m)");
-        }
+        throw new InvalidDataException(string.Join(Environment.NewLine, problems));
     }
+
+    var planner = new RoutePlanner(city, packages, start);
+    var route = planner.Plan();
+    Console.Write(RoutePrinter.Print(city, packages, start, planner, route));
 }
 catch (InvalidDataException ex)
 {
     Console.WriteLine(ex.Message);
-}*/
-
-/*using Backend;
-
-try
+    Environment.ExitCode = 1;
+}
+catch (FileNotFoundException ex)
 {
-    var city = CityFile.Load("city_mini.txt");
-    var packages = PackageFile.Load("packages_mini.txt", city);
+    Console.WriteLine($"NO SE ENCONTRO ARCHIVO'{ex.FileName}'.");
+    Environment.ExitCode = 1;
+}
+catch (DirectoryNotFoundException ex)
+{
+    Console.WriteLine($"NO SE ENCONTRO LA CARPETA DEL ARCHIVO: {ex.Message}");
+    Environment.ExitCode = 1;
+}
 
-    Console.WriteLine($"Paquetes: {packages.Count}");
-    foreach (var package in packages)
+catch (IOException ex)
+{
+    Console.WriteLine($"NO SE PUEDE LEER EL ARCHIVO: {ex.Message}");
+    Environment.ExitCode = 1;
+
+}
+
+    static string Ask(string question)
+{
+    string? answer;
+    do
     {
-        Console.WriteLine($"Paquete {package.Id}: recoger en {package.Pickup}, entregar en {package.Delivery}");
+        Console.Write(question);
+        answer = Console.ReadLine();
     }
+    while (string.IsNullOrWhiteSpace(answer));
+
+    return answer.Trim();
 }
-catch (InvalidDataException ex)
-{
-    Console.WriteLine(ex.Message);
-}*/
-/*
-using Backend;
-
-try
-{
-    var city = CityFile.Load("city.txt");
-    var packages = PackageFile.Load("packages.txt", city);
-
-    Console.WriteLine($"Ubicaciones: {city.VertexCount}");
-    Console.WriteLine($"Paquetes: {packages.Count}");
-
-    foreach (var package in packages.Take(5))
-    {
-        Console.WriteLine($"Paquete {package.Id}: recoger en {package.Pickup}, entregar en {package.Delivery}");
-    }
-
-    var last = packages[^1];
-    Console.WriteLine($"Paquete {last.Id}: recoger en {last.Pickup}, entregar en {last.Delivery}");
-}
-catch (InvalidDataException ex)
-{
-    Console.WriteLine(ex.Message);
-}*/
-
-/*using Backend;
-
-var mini = CityFile.Load("city_mini.txt");
-
-
-var (distance, previous) = ShortestPaths.Dijkstra(mini, "A");
-foreach (var vertex in distance.Keys.OrderBy(v => v))
-{
-    Console.WriteLine($"A -> {vertex}: {distance[vertex]} m");
-}
-Console.WriteLine("Camino A a G: " + string.Join(" -> ", ShortestPaths.BuildPath(previous, "A", "G")));
-
-var (distanceD, previousD) = ShortestPaths.Dijkstra(mini, "D");
-Console.WriteLine($"D -> A: {distanceD["A"]} m");
-Console.WriteLine("Camino D a A: " + string.Join(" -> ", ShortestPaths.BuildPath(previousD, "D", "A")));
-
-var city = CityFile.Load("city.txt");
-Console.WriteLine($"AQ -> BS: {ShortestPaths.Dijkstra(city, "AQ").Distance["BS"]} m");
-Console.WriteLine($"BS -> AQ: {ShortestPaths.Dijkstra(city, "BS").Distance["AQ"]} m");*/
-
-/*using Backend;
-
-var city = CityFile.Load("city_mini.txt");
-var packages = PackageFile.Load("packages_mini.txt", city);
-var planner = new RoutePlanner(city, packages, "A");
-
-var route = planner.NearestNeighbor();
-int number = 1;
-foreach (var stop in route)
-{
-    string action = stop.Kind == StopKind.Pickup ? "Recoger" : "Entregar";
-    Console.WriteLine($"{number++}. {action} paquete {stop.PackageId} en {stop.Location}");
-}
-
-Console.WriteLine($"Válida: {planner.IsValid(route)}");
-Console.WriteLine($"Total: {planner.TotalDistance(route)} m");
-Console.WriteLine("Camino D a A: " + string.Join(" -> ", planner.PathBetween("D", "A")));*/
-
-/*using Backend;
-
-var city = CityFile.Load("city_mini.txt");
-var packages = PackageFile.Load("packages_mini.txt", city);
-var planner = new RoutePlanner(city, packages, "A");
-
-var route = planner.Plan();
-int number = 1;
-foreach (var stop in route)
-{
-    string action = stop.Kind == StopKind.Pickup ? "Recoger" : "Entregar";
-    Console.WriteLine($"{number++}. {action} paquete {stop.PackageId} en {stop.Location}");
-}
-
-Console.WriteLine($"Válida: {planner.IsValid(route)}");
-Console.WriteLine($"Total: {planner.TotalDistance(route)} m");*/
-
-/*using Backend;
-
-var city = CityFile.Load("city.txt");
-var packages = PackageFile.Load("packages.txt", city);
-var planner = new RoutePlanner(city, packages, "D");
-
-var inserted = planner.BuildByInsertion(packages);
-Console.WriteLine($"Solo inserción: {planner.TotalDistance(inserted) / 1000:F2} km");
-
-var relocated = planner.Relocate(inserted);
-Console.WriteLine($"Con reubicación: {planner.TotalDistance(relocated) / 1000:F2} km");
-Console.WriteLine($"Paradas: {relocated.Count}");
-Console.WriteLine($"Válida: {planner.IsValid(relocated)}");*/
-
-using Backend;
-
-var city = CityFile.Load("city.txt");
-var packages = PackageFile.Load("packages.txt", city);
-var planner = new RoutePlanner(city, packages, "D");
-
-var route = planner.Plan();
-Console.Write(RoutePrinter.Print(city, packages, "D", planner, route));
