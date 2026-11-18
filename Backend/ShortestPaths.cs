@@ -1,5 +1,10 @@
 ﻿namespace Backend;
 
+/// <summary>
+/// I will provide a brief interpretation of the project, Zulu, here.
+/// It uses Dijkstra's algorithm with a priority queue, and reconstructs the path based on reachability 
+/// predecessors determined prior to path planning.
+/// </summary>
 public static class ShortestPaths
 {
     
@@ -64,7 +69,7 @@ public static class ShortestPaths
 
         if (!city.ContainsVertex(start))
         {
-            problems.Add($"La posición inicial '{start}' no existe en el mapa.");
+            problems.Add($"LA POSICION INICIAL '{start}' NO EXISTE EN EL MAPA.");
             return problems;
         }
 
@@ -82,7 +87,7 @@ public static class ShortestPaths
         {
             if (!fromStart.ContainsKey(point))
             {
-                problems.Add($"El punto {point} no es alcanzable desde la posición inicial {start}.");
+                problems.Add($"El punto {point} NO ES ALCANZABLE DESDE LA POSICION INICIAL {start}.");
             }
         }
 
@@ -93,7 +98,7 @@ public static class ShortestPaths
 
             if (missing.Count > 0)
             {
-                problems.Add($"Desde el punto {point} no se puede llegar a: {string.Join(", ", missing)}.");
+                problems.Add($"Desde el punto {point} NO SE PUEDE LLEGAR A: {string.Join(", ", missing)}.");
             }
         }
 

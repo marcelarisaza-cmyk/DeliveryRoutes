@@ -2,6 +2,11 @@ using System.Globalization;
 
 namespace Backend;
 
+/// <summary>
+/// I'll leave a brief interpretation of the project here, Zulu.
+/// Loads the tasks file location,action,package and validates it against the city map
+/// and groups the Pickup and Delivery lines of each package into Package objects.
+/// </summary>
 public static class PackageFile
 {
     public static List<Package> Load(string path, Graph<string> city)
@@ -24,7 +29,7 @@ public static class PackageFile
             string[] parts = line.Split(',').Select(p => p.Trim()).ToArray();
             if (parts.Length != 3 || parts.Any(p => p.Length == 0))
             {
-                errors.Add($"Línea {lineNumber}: formato inválido, se esperaba 'ubicación,acción,paquete' y se encontró '{line}'.");
+                errors.Add($"Línea {lineNumber}: FORMATO INVALIDO, SE ESPERABA 'UBICACIÓN,ACCIÓN,PAQUETE' Y SE ENCONTRÓ '{line}'.");
                 continue;
             }
 
@@ -35,19 +40,19 @@ public static class PackageFile
             bool isDelivery = action.Equals("Delivery", StringComparison.OrdinalIgnoreCase);
             if (!isPickup && !isDelivery)
             {
-                errors.Add($"Línea {lineNumber}: la acción '{action}' debe ser Pickup o Delivery.");
+                errors.Add($"Línea {lineNumber}: la acción '{action}' DEBE SER 'Pickup' O 'Delivery'.");
                 continue;
             }
 
             if (!int.TryParse(parts[2], NumberStyles.Integer, CultureInfo.InvariantCulture, out int id) || id <= 0)
             {
-                errors.Add($"Línea {lineNumber}: el número de paquete '{parts[2]}' no es un entero mayor que 0.");
+                errors.Add($"Línea {lineNumber}: el número de paquete '{parts[2]}' NO ES UN ENTERO MAYOR QUE 0.");
                 continue;
             }
 
             if (!city.ContainsVertex(location))
             {
-                errors.Add($"Línea {lineNumber}: la ubicación '{location}' no existe en el mapa.");
+                errors.Add($"Línea {lineNumber}: la ubicación '{location}' NO EXISTE EN EL MAPA.");
                 continue;
             }
 
@@ -55,14 +60,14 @@ public static class PackageFile
             {
                 if (!pickups.TryAdd(id, location))
                 {
-                    errors.Add($"Línea {lineNumber}: el paquete {id} ya tiene una recogida (Pickup).");
+                    errors.Add($"Línea {lineNumber}: el paquete {id}  YA TIENE UNA RECOGIDA OSEA (Pickup).");
                 }
             }
             else
             {
                 if (!deliveries.TryAdd(id, location))
                 {
-                    errors.Add($"Línea {lineNumber}: el paquete {id} ya tiene una entrega (Delivery).");
+                    errors.Add($"Línea {lineNumber}: el paquete {id} YA TIENE UNA ENTREGA OSEA (Delivery).");
                 }
             }
         }
@@ -71,11 +76,11 @@ public static class PackageFile
         {
             if (!pickups.ContainsKey(id))
             {
-                errors.Add($"El paquete {id} no tiene recogida (Pickup).");
+                errors.Add($"El paquete {id} NO TIENE RECOGIDA OSEA (Pickup).");
             }
             else if (!deliveries.ContainsKey(id))
             {
-                errors.Add($"El paquete {id} no tiene entrega (Delivery).");
+                errors.Add($"El paquete {id} NO TIENE ENTREGA OSEA (Delivery).");
             }
         }
 

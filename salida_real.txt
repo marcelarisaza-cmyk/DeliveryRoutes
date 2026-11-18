@@ -1,0 +1,52 @@
+﻿POSICION INICIAL: D
+Paquetes: 30  Ubicaciones: 100  Calles: 142 (30 UN SOLO SENTIDO)
+
+1. En D: recoger paquete 18.
+2. Ir de D a BE (620 m): recoger paquete 7. Camino: D -> BT -> BE
+3. Ir de BE a X (490 m): recoger paquete 12. Camino: BE -> E -> X
+4. Ir de X a BU (560 m): recoger paquetes 28 y 8. Camino: X -> B -> BU
+5. Ir de BU a CN (430 m): recoger paquetes 2, 3 y 1. Camino: BU -> CN
+6. Ir de CN a AM (780 m): recoger paquete 30. Camino: CN -> BU -> AM
+7. Ir de AM a AQ (440 m): recoger paquete 9. Camino: AM -> AK -> AX -> AQ
+8. Ir de AQ a CS (560 m): recoger paquete 19. Camino: AQ -> BS -> CS
+9. Ir de CS a BS (310 m): recoger paquete 25. Camino: CS -> BS
+10. Ir de BS a CH (460 m): recoger paquete 10. Camino: BS -> CT -> CJ -> CH
+11. Ir de CH a CV (510 m): entregar paquete 28. Camino: CH -> CJ -> CV
+12. Ir de CV a CU (540 m): recoger paquete 15. Camino: CV -> BX -> CU
+13. Ir de CU a M (1060 m): entregar paquete 1. Camino: CU -> CV -> W -> CM -> M
+14. Ir de M a AP (800 m): recoger paquete 5. Camino: M -> CM -> AE -> AP
+15. Ir de AP a AT (350 m): recoger paquete 27. Camino: AP -> AT
+16. Ir de AT a AX (370 m): recoger paquete 17. Camino: AT -> AQ -> AX
+17. Ir de AX a BV (630 m): entregar paquete 19. Camino: AX -> F -> BV
+18. Ir de BV a AB (470 m): recoger paquete 4. Camino: BV -> AB
+19. Ir de AB a BW (2360 m): entregar paquete 30. Camino: AB -> BV -> F -> AX -> S -> K -> N -> BW
+20. Ir de BW a CL (270 m): recoger paquete 14. Camino: BW -> CL
+21. Ir de CL a R (360 m): recoger paquetes 6 y 21. Camino: CL -> R
+22. Ir de R a BN (810 m): entregar paquete 7. Camino: R -> CL -> BN
+23. Ir de BN a AI (1130 m): recoger paquete 24. Camino: BN -> Y -> AV -> CG -> AI
+24. Ir de AI a AO (170 m): entregar paquete 3 y recoger paquete 11. Camino: AI -> AO
+25. Ir de AO a BM (720 m): entregar paquetes 2 y 10. Camino: AO -> AI -> AS -> BM
+26. Ir de BM a BI (1750 m): recoger paquete 13. Camino: BM -> AS -> BH -> BL -> CO -> BI
+27. Ir de BI a Q (1380 m): recoger paquetes 22 y 29. Camino: BI -> CO -> AZ -> V -> O -> BY -> Q
+28. Ir de Q a AA (1450 m): entregar paquete 12. Camino: Q -> BJ -> CI -> Z -> AA
+29. Ir de AA a T (1630 m): entregar paquetes 27 y 24. Camino: AA -> Z -> CA -> BT -> BE -> T
+30. Ir de T a BE (440 m): entregar paquete 21. Camino: T -> BE
+31. Ir de BE a CP (460 m): entregar paquete 9. Camino: BE -> BT -> CP
+32. Ir de CP a AD (670 m): entregar paquete 5. Camino: CP -> BT -> P -> CB -> AD
+33. Ir de AD a AR (280 m): entregar paquete 8 y recoger paquete 20. Camino: AD -> AR
+34. Ir de AR a BB (150 m): recoger paquete 16. Camino: AR -> BB
+35. Ir de BB a AJ (400 m): entregar paquete 29 y recoger paquetes 23 y 26. Camino: BB -> AJ
+36. Ir de AJ a AD (830 m): entregar paquete 13. Camino: AJ -> BB -> AR -> AD
+37. Ir de AD a AC (1200 m): entregar paquete 17. Camino: AD -> CB -> P -> BT -> D -> AC
+38. Ir de AC a CD (130 m): entregar paquete 25. Camino: AC -> CD
+39. Ir de CD a BY (810 m): entregar paquete 16. Camino: CD -> BA -> BG -> BY
+40. Ir de BY a BF (1170 m): entregar paquetes 18 y 23. Camino: BY -> O -> I -> BG -> BA -> AG -> BF
+41. Ir de BF a AP (760 m): entregar paquetes 22 y 11. Camino: BF -> X -> B -> AP
+42. Ir de AP a AE (370 m): entregar paquete 26. Camino: AP -> AE
+43. Ir de AE a AT (720 m): entregar paquetes 15 y 14. Camino: AE -> AP -> AT
+44. Ir de AT a AQ (200 m): entregar paquete 6. Camino: AT -> AQ
+45. Ir de AQ a CT (350 m): entregar paquete 4. Camino: AQ -> BS -> CT
+46. Ir de CT a CR (420 m): entregar paquete 20. Camino: CT -> CR
+
+Todos los paquetes fueron recogidos y entregados.
+Recorrido total: 30.77 km

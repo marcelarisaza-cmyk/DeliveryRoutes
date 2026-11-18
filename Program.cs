@@ -1,5 +1,11 @@
 ﻿using Backend;
 
+/// <summary>
+//Here is a brief interpretation of the Zulu project.
+// The program's entry point reads the arguments (or prompts for them via the console),
+// validates the files,
+// plans the route, and outputs the results.
+
 if (args.Length != 0 && args.Length != 3)
 {
     Console.WriteLine("Uso: dotnet run -- city.txt packages.txt D");
@@ -8,7 +14,7 @@ if (args.Length != 0 && args.Length != 3)
 
 try
 {
-    string cityPath = args.Length == 3 ? args[0] : Ask("Ruta del archivo  MAPA (CITY.TXT): ");
+    string cityPath = args.Length == 3 ? args[0] : Ask( "Ruta del archivo  MAPA (CITY.TXT): ");
     string packagesPath = args.Length == 3 ? args[1] : Ask("Ruta del archivo PAQUETE (PACKAGES.TXT): ");
     string start = (args.Length == 3 ? args[2] : Ask("Posición INICIO (D): ")).Trim();
 

@@ -1,5 +1,14 @@
 ﻿namespace Backend;
 
+/// <summary>
+/// I'll leave a brief interpretation of the project here, Zulu.
+/// It plans the delivery person's route and constructs a distance table between relevant
+/// points using Dijkstra's algorithm. Subsequently, it seeks a short route by employing 
+/// nearest neighbor techniques, performs insertions, relocations, and random restarts,
+/// and calculates the total distance while verifying the validity of the route.
+/// </summary>
+/// 
+
 public class RoutePlanner
 {
     private readonly IReadOnlyList<Package> _packages;

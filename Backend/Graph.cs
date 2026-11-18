@@ -1,5 +1,11 @@
 namespace Backend;
 
+/// <summary>
+/// I'll leave a brief interpretation of the project here, prof. Zulu.
+/// A directed edge of the city graph: it can only be travelled from From to To.
+/// Weight is the length of the street in meters.
+/// </summary> 
+/// 
 public class Graph<T> where T : notnull
 {
     private readonly Dictionary<T, List<Edge<T>>> _adjacency = new();

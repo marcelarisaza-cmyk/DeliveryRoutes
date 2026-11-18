@@ -1,7 +1,15 @@
+
 using System.Globalization;
 
 namespace Backend;
-
+/// <summary>
+/// I'll leave a brief interpretation of the project here, Zulu.
+/// It loads the city map from a plain-text file containing origin, destination, distance in meters,
+/// and direction; 
+/// it also validates each line and constructs a directed graph. A two-way street adds two edges,
+/// while a one-way street adds one. All errors are reported, indicating the corresponding line number.
+/// </summary>
+/// 
 public static class CityFile
 {
     public static Graph<string> Load(string path)
@@ -24,7 +32,7 @@ public static class CityFile
             string[] parts = line.Split(',').Select(p => p.Trim()).ToArray();
             if (parts.Length != 4 || parts.Any(p => p.Length == 0))
             {
-                errors.Add($"Línea {lineNumber}: formato inválido, se esperaba 'origen,destino,distancia,sentido' y se encontró '{line}'.");
+                errors.Add($"Línea {lineNumber}: FORMATO INVALIDO, SE ESPERABA 'ORIGEN,DESTINO,DISTANCIA,SENTIDO' Y SWE ENCONTRO '{line}'.");
                 continue;
             }
 
@@ -35,7 +43,7 @@ public static class CityFile
                 || !double.IsFinite(distance)
                 || distance <= 0)
             {
-                errors.Add($"Línea {lineNumber}: la distancia '{parts[2]}' no es un número positivo.");
+                errors.Add($"Línea {lineNumber}: LA DISTANCIA '{parts[2]}' NO ES UN NÚMERO POSITIVO.");
                 continue;
             }
 
@@ -50,14 +58,14 @@ public static class CityFile
             }
             else
             {
-                errors.Add($"Línea {lineNumber}: el sentido '{parts[3]}' debe ser TwoWay u OneWay.");
+                errors.Add($"Línea {lineNumber}: el sentido '{parts[3]}' DEBE SER 'TwoWay' O 'OneWay'.");
                 continue;
             }
 
             var key = string.CompareOrdinal(from, to) <= 0 ? (from, to) : (to, from);
             if (!streets.Add(key))
             {
-                errors.Add($"Línea {lineNumber}: la calle {from}-{to} está repetida (A,B y B,A son la misma calle).");
+                errors.Add($"Línea {lineNumber}: la calle {from}-{to} ESTA REPETIDA (A,B y B,A SON LA MISMA CALLE).");
                 continue;
             }
 

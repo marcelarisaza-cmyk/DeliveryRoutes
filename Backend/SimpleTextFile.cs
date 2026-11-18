@@ -1,5 +1,10 @@
 namespace Backend;
 
+/// <summary>
+/// I'll leave a brief interpretation of the project here, Zulu.
+/// Small helper to read and write the lines of a plain text file. 
+/// </summary>
+/// 
 public class SimpleTextFile
 {
     private readonly string? _path;

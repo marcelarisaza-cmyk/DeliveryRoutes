@@ -3,6 +3,13 @@ using System.Text;
 
 namespace Backend;
 
+/// <summary>
+///Here is a brief interpretation of the project, Zulu.
+/// It generates a step-by-step route description: tasks at the same location are grouped
+/// into a single stop, deliveries are listed before pickups, and it also identifies
+/// the streets traveled, as well as the total distance in km.
+/// </summary>
+
 public static class RoutePrinter
 {
     public static string Print(
@@ -48,7 +55,7 @@ public static class RoutePrinter
 
         string kilometers = (total / 1000).ToString("F2", CultureInfo.InvariantCulture);
         text.AppendLine();
-        text.AppendLine("Todos los paquetes fueron recogidos y entregados.");
+        text.AppendLine("TODOS LOS PAQUETES FUERON RECOGIDOS Y ENTREGADOS DE MANERA CORRECTA");
         text.AppendLine($"Recorrido total: {kilometers} km");
 
         return text.ToString();
