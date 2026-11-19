@@ -60,14 +60,14 @@ public static class PackageFile
             {
                 if (!pickups.TryAdd(id, location))
                 {
-                    errors.Add($"Línea {lineNumber}: el paquete {id}  YA TIENE UNA RECOGIDA OSEA (Pickup).");
+                    errors.Add($"Línea {lineNumber}: el paquete {id}  YA TIENE UNA RECOGIDA (Pickup).");
                 }
             }
             else
             {
                 if (!deliveries.TryAdd(id, location))
                 {
-                    errors.Add($"Línea {lineNumber}: el paquete {id} YA TIENE UNA ENTREGA OSEA (Delivery).");
+                    errors.Add($"Línea {lineNumber}: el paquete {id} YA TIENE UNA ENTREGA (Delivery).");
                 }
             }
         }
@@ -76,11 +76,11 @@ public static class PackageFile
         {
             if (!pickups.ContainsKey(id))
             {
-                errors.Add($"El paquete {id} NO TIENE RECOGIDA OSEA (Pickup).");
+                errors.Add($"El paquete {id} NO TIENE RECOGIDA (Pickup).");
             }
             else if (!deliveries.ContainsKey(id))
             {
-                errors.Add($"El paquete {id} NO TIENE ENTREGA OSEA (Delivery).");
+                errors.Add($"El paquete {id} NO TIENE ENTREGA (Delivery).");
             }
         }
 

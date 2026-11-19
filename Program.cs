@@ -38,7 +38,7 @@ catch (InvalidDataException ex)
 }
 catch (FileNotFoundException ex)
 {
-    Console.WriteLine($"NO SE ENCONTRO ARCHIVO'{ex.FileName}'.");
+    Console.WriteLine($"NO SE ENCONTRO ARCHIVO {ex.FileName}'.");
     Environment.ExitCode = 1;
 }
 catch (DirectoryNotFoundException ex)

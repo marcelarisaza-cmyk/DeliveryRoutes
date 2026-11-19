@@ -32,7 +32,7 @@ public static class CityFile
             string[] parts = line.Split(',').Select(p => p.Trim()).ToArray();
             if (parts.Length != 4 || parts.Any(p => p.Length == 0))
             {
-                errors.Add($"Línea {lineNumber}: FORMATO INVALIDO, SE ESPERABA 'ORIGEN,DESTINO,DISTANCIA,SENTIDO' Y SWE ENCONTRO '{line}'.");
+                errors.Add($"Línea {lineNumber}: FORMATO INVALIDO, SE ESPERABA 'ORIGEN,DESTINO,DISTANCIA,SENTIDO' Y SE ENCONTRO '{line}'.");
                 continue;
             }
 
